@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <section>
+        <video id="slider" autoplay loop>
+            <source src="vid6.mp4">
+        </video>nextfunc
+        <span onclick="nextfunc()" id="next"></span>
+        <span onclick="prefunc()" id="previous"></span>
+        <div class="timer"></div>
+        <ul class="nav">
+            <li data-src="vid6.mp4" ></li>
+            <li data-src="vid7.mp4"></li>
+            <li data-src="vid8.mp4"></li>
+            <li data-src="vid3.mp4"></li>
+            <li data-src="vid5.mp4"></li>
+            <li data-src="vid1.mp4"></li>
+            <li data-src="vid9.mp4"></li>
+        </ul>    
+    </section>
+</body>
+<script>
+  let _li=document.querySelectorAll("li")
+  let _vid=document.getElementById("slider")
+  let _next=document.getElementById("next")
+  let _pre=document.getElementById("previous")
+  let turn=1
+  let timer
+setInterval(()=>{
+     timer=parseInt(_vid.duration - _vid.currentTime)
+    document.getElementsByClassName("timer")[0].innerHTML= parseInt(_vid.duration - _vid.currentTime)
+    if(timer==0){
+    nextfunc()
+}
+} ,1000)
+  _li[turn-1].style.backgroundColor="#333"
+    _li.forEach(function(item,index){
+       item.addEventListener("click",function(){
+            let src =item.getAttribute("data-src")
+            _vid.style.transform="scale(0)"
+            _vid.style.opacity="0"
+            _vid.setAttribute("src", src)
+            setTimeout(function(){
+                _vid.style.transform="scale(1)"
+            },500)
+            setTimeout(function(){
+                _vid.style.opacity="1"
+            },1000)
+            turn=index+1
+            chengecolor(index+1)
+        })
+    })
+    function nextfunc(){
+        if(turn<_li.length){
+            turn++
+        }
+        else if(turn ==_li.length){
+            turn=1
+            
+        }
+        _vid.setAttribute("src",_li[turn-1].getAttribute("data-src"))
+       chengecolor(turn)
+    }
+    function prefunc(){
+        if(turn>1){
+            turn--
+        }
+        else if(turn ==1){
+            turn=_li.length
+        }
+        _vid.setAttribute("src",_li[turn-1].getAttribute("data-src"))
+        chengecolor(turn)
+      
+    }
+    function chengecolor(turn){
+       
+            _li.forEach((item)=>{
+                item.style.backgroundColor="#fff"
+
+            })
+            _li[turn-1].style.backgroundColor="#333"
+    }
+</script>
+</html>
