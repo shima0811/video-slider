@@ -9,7 +9,7 @@
 </head>
 <body>
     <section>
-        <video id="slider" autoplay loop>
+        <video id="slider" autoplay loop muted>
             <source src="vid6.mp4">
         </video>nextfunc
         <span onclick="nextfunc()" id="next"></span>
@@ -62,8 +62,7 @@ setInterval(()=>{
             turn++
         }
         else if(turn ==_li.length){
-            turn=1
-            
+            turn=1 
         }
         _vid.setAttribute("src",_li[turn-1].getAttribute("data-src"))
        chengecolor(turn)
@@ -80,10 +79,8 @@ setInterval(()=>{
       
     }
     function chengecolor(turn){
-       
             _li.forEach((item)=>{
                 item.style.backgroundColor="#fff"
-
             })
             _li[turn-1].style.backgroundColor="#333"
     }
